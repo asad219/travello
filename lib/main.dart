@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:travello/helper/Utils.dart';
+import 'package:travello/theme/styles.dart';
 import 'package:travello/views/startup/login/LoginScreen.dart';
 import 'package:travello/views/startup/signup/SignupScreen.dart';
 import 'package:travello/views/startup/spash/SplashScreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,11 +21,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          fontFamily: 'Montserrat',
+          primaryColor: AppColors.primaryColor,
+          scaffoldBackgroundColor: Colors.white,
         ),
         routes: {
-          "/": (context) => const SplashScreen(),
-          "/login": (context) => const LoginScreen(),
-          "/signup": (context) => const SignupScreen()
+          "/": (context) => SplashScreen(),
+          "/login": (context) => LoginScreen(),
+          "/signup": (context) => SignupScreen()
         }
         //,
         //home: const SplashScreen(),

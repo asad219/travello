@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:travello/common/app_button.dart';
+import 'package:travello/theme/styles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -6,6 +8,9 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
+
+//Define Variables
+bool isLoading = false;
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
@@ -25,22 +30,22 @@ class _SplashScreenState extends State<SplashScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Expanded(
+              Expanded(
                   flex: 3,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(0, 70, 0, 0),
                     child: Column(
                       children: [
-                        Image(
+                        const Image(
                           image: AssetImage("assets/images/travello-logo.png"),
                           width: 100,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Text(
                           "Find your best place for...",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyles().h4(AppColors.textWhite),
                         )
                       ],
                     ),
@@ -48,37 +53,27 @@ class _SplashScreenState extends State<SplashScreen> {
               Column(
                 children: [
                   SizedBox(
-                    width: MediaQuery.sizeOf(context).width * .85,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        elevation: 10,
-                        backgroundColor: const Color.fromRGBO(52, 101, 4, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), // <-- Radius
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 6,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              "Get Started",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            )
+                      width: MediaQuery.sizeOf(context).width * .85,
+                      child: AppButton(
+                          state: isLoading
+                              ? ButtonState.loading
+                              : ButtonState.idle,
+                          gradiant: const [
+                            AppColors.primaryColor,
+                            AppColors.primaryColor
                           ],
-                        ),
-                      ),
-                    ),
-                  )
+                          buttonRadius: 10,
+                          title: isLoading ? "Loading..." : "Get Started",
+                          titleColor: AppColors.textWhite,
+                          leadingIcon: const Icon(
+                            Icons.arrow_forward_rounded,
+                            color: AppColors.textWhite,
+                          ),
+                          onTap: () async {
+                            setState(() {
+                              isLoading = !isLoading;
+                            });
+                          }))
                 ],
               ),
               const Padding(
