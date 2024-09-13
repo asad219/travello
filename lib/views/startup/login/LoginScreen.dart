@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key, required this.data});
+  final data;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -10,6 +11,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    print('my data');
+    return SafeArea(
+        child: Scaffold(
+      appBar: AppBar(
+        title: Text("Login Page"),
+      ),
+      body: Center(
+        child: Text("Asad"),
+      ),
+    ));
   }
 }
