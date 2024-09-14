@@ -13,9 +13,8 @@ class CustomRouter {
       case welcomeRoute:
         return MaterialPageRoute(builder: (_) => const WelcomeScreen());
       case loginRoute:
-        final arguments = settings.arguments;
         return MaterialPageRoute(
-            builder: (_) => LoginScreen(data: arguments), settings: settings);
+            builder: (_) => LoginScreen(), settings: settings);
       case signupRoute:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
     }

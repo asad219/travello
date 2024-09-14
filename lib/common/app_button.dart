@@ -13,6 +13,7 @@ class AppButton extends StatefulWidget {
   final Function()? onTap;
   final Color? titleColor;
   final double? buttonRadius;
+  final double? fontSize = 14;
 
   AppButton({
     Key? key,
@@ -57,11 +58,12 @@ class _AppButtonState extends State<AppButton> {
                 children: [
                   Text(
                     widget.title,
-                    style: TextStyle(color: widget.titleColor, fontSize: 20),
+                    style: TextStyle(
+                        color: widget.titleColor, fontSize: widget.fontSize),
                   ),
                   if (widget.leadingIcon != null)
                     Padding(
-                      padding: EdgeInsets.only(right: 10),
+                      padding: EdgeInsets.only(left: 10),
                       child: widget.leadingIcon,
                     ),
                 ],

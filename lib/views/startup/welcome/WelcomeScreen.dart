@@ -47,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                         Text(
                           "Find your best place for...",
-                          style: TextStyles().h4(AppColors.textWhite),
+                          style: h4(AppColors.textWhite),
                         )
                       ],
                     ),
@@ -75,11 +75,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             setState(() {
                               isLoading = !isLoading;
                             });
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                loginRoute, (route) => true,
-                                arguments: LoginScreen(
-                                  data: {'email': 'asad219@hotmail.com'},
-                                ));
+                            // Navigator.of(context).pushNamedAndRemoveUntil(
+                            //     loginRoute, (route) => false,
+                            //     arguments: ({
+                            //       'email': 'asad219@hotmail.com',
+                            //       'name': 'Asad Khan'
+                            //     }));
+                            Navigator.pushNamed(context, loginRoute);
                           }))
                 ],
               ),
