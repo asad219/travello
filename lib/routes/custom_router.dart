@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:travello/routes/route_constants.dart';
-import 'package:travello/views/startup/login/LoginScreen.dart';
-import 'package:travello/views/startup/signup/SignupScreen.dart';
-import 'package:travello/views/startup/spash/SplashScreen.dart';
-import 'package:travello/views/startup/welcome/WelcomeScreen.dart';
+import 'package:travello/views/startup/startup/HomeScreen.dart';
+import 'package:travello/views/startup/startup/LoginScreen.dart';
+import 'package:travello/views/startup/startup/SignupScreen.dart';
+import 'package:travello/views/startup/startup/SplashScreen.dart';
+import 'package:travello/views/startup/startup/WelcomeScreen.dart';
 
 class CustomRouter {
   static Route<dynamic>? generatedRoute(RouteSettings settings) {
@@ -17,6 +18,8 @@ class CustomRouter {
             builder: (_) => LoginScreen(), settings: settings);
       case signupRoute:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
+      case homeRoute:
+        return MaterialPageRoute(builder: (_) => const Homescreen());
     }
     return null;
   }

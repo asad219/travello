@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:travello/helper/Utils.dart';
 import 'package:travello/routes/custom_router.dart';
 import 'package:travello/routes/route_constants.dart';
 import 'package:travello/theme/styles.dart';
-import 'package:travello/views/startup/login/LoginScreen.dart';
-import 'package:travello/views/startup/signup/SignupScreen.dart';
-import 'package:travello/views/startup/welcome/WelcomeScreen.dart';
+
+import 'appBlocs/authBloc/auth_bloc.dart';
+
 
 void main() {
-  runApp(MyApp());
+  runApp( MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(create: ( context) => AuthBloc(),),
+      ],
+
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -28,6 +34,7 @@ class MyApp extends StatelessWidget {
           primaryColor: AppColors.primaryColor,
           scaffoldBackgroundColor: Colors.white,
         ),
+
         onGenerateRoute: CustomRouter.generatedRoute,
         initialRoute: splashRoute,
         builder: EasyLoading.init());

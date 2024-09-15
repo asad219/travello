@@ -38,6 +38,10 @@ dependencies:
   flutter_easyloading:
   animated_splash_screen:
   flutter_launcher_icons: ^0.13.1
+  flutter_bloc: ^8.1.6
+  fluttertoast: ^8.1.1
+  http: ^1.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

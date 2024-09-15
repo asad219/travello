@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:travello/views/startup/welcome/WelcomeScreen.dart';
+import 'package:travello/views/startup/startup/WelcomeScreen.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {

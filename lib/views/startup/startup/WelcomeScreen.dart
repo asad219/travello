@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travello/common/app_button.dart';
 import 'package:travello/routes/route_constants.dart';
 import 'package:travello/theme/styles.dart';
-import 'package:travello/views/startup/login/LoginScreen.dart';
+import 'package:travello/views/startup/startup/LoginScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -81,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             //       'email': 'asad219@hotmail.com',
                             //       'name': 'Asad Khan'
                             //     }));
-                            Navigator.pushNamed(context, loginRoute);
+                            Navigator.of(context).pushReplacementNamed(loginRoute);
                           }))
                 ],
               ),
