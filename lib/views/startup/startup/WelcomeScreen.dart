@@ -65,7 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             AppColors.primaryColor
                           ],
                           buttonRadius: 10,
-                          title: isLoading ? "Loading..." : "Get Started",
+                          title: "Get Started",
                           titleColor: AppColors.textWhite,
                           leadingIcon: const Icon(
                             Icons.arrow_forward_rounded,
@@ -81,7 +81,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             //       'email': 'asad219@hotmail.com',
                             //       'name': 'Asad Khan'
                             //     }));
-                            Navigator.of(context).pushReplacementNamed(loginRoute);
+                            Navigator.of(context)
+                                .pushReplacementNamed(loginRoute);
                           }))
                 ],
               ),

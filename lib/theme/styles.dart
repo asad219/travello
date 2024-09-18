@@ -46,17 +46,26 @@ TextStyle normalText1(Color textColor) {
   return TextStyle(fontSize: 16, color: textColor, fontWeight: FontWeight.w600);
 }
 
+TextStyle normalText1Bold(Color textColor) {
+  return TextStyle(fontSize: 16, color: textColor, fontWeight: FontWeight.w600);
+}
+
 TextStyle normalText2(Color textColor) {
   return TextStyle(
-      fontSize: 14.22, color: textColor, fontWeight: FontWeight.w600);
+      fontSize: 12.22, color: textColor, fontWeight: FontWeight.w400);
+}
+
+TextStyle normalText2Bold(Color textColor) {
+  return TextStyle(
+      fontSize: 12.22, color: textColor, fontWeight: FontWeight.w600);
 }
 
 TextStyle smallText1(Color textColor) {
   return TextStyle(
-      fontSize: 12.64, color: textColor, fontWeight: FontWeight.w600);
+      fontSize: 10.64, color: textColor, fontWeight: FontWeight.w400);
 }
 
 TextStyle smallText2(Color textColor) {
   return TextStyle(
-      fontSize: 11.24, color: textColor, fontWeight: FontWeight.w600);
+      fontSize: 11.24, color: textColor, fontWeight: FontWeight.w400);
 }

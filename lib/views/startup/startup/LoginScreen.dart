@@ -54,11 +54,28 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 16),
               Text(
-                "Welcome,",
-                style: h4(AppColors.textDark),
+                "Sign In",
+                style: h3(AppColors.textDark),
               ),
               const SizedBox(
-                height: 40,
+                height: 60,
+              ),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Wolcome to Travello",
+                      style: h4(AppColors.textDark),
+                    ),
+                    Text(
+                      "Enter username and password \nand explore the world!",
+                      style: normalText2(AppColors.textLight),
+                    ),
+                  ],
+                ),
               ),
               AppTextBox(
                 label: "Username",
@@ -83,14 +100,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 40,
               ),
               SizedBox(
-                  width: MediaQuery.sizeOf(context).width * .85,
                   child: AppButton(
                       state: isLoading ? ButtonState.loading : ButtonState.idle,
                       gradiant: const [
                         AppColors.primaryColor,
                         AppColors.primaryColor
                       ],
-                      buttonRadius: 10,
+                      buttonRadius: 30,
                       title: isLoading ? "Loading..." : "Login",
                       titleColor: AppColors.textWhite,
                       leadingIcon: const Icon(
@@ -113,6 +129,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       })),
               const SizedBox(
                 height: 25,
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                child: Text(
+                  "OR",
+                  style: smallText2(AppColors.textDark.withOpacity(.5)),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(image: AssetImage("assets/icons/facebook.png")),
+                  Image(image: AssetImage("assets/icons/gmail.png")),
+                ],
               ),
               BlocConsumer<AuthBloc, AuthState>(
                 builder: (context, state) {
@@ -152,9 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text("Don't have an account? ",
-                      style: normalText1(AppColors.textDark)),
+                      style: normalText2(AppColors.textDark)),
                   const SizedBox(width: 8),
-                  Text("Sign Up", style: h4(AppColors.textDark)),
+                  Text("Sign Up",
+                      style: normalText2Bold(AppColors.primaryColor)),
                 ],
               ),
             ),

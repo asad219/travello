@@ -12,7 +12,7 @@ class AppTextBox extends StatelessWidget {
       this.textInputType,
       this.enabled = true,
       this.obscureText = false,
-      this.isSuffixIcon = false,
+      required this.isSuffixIcon,
       this.suffixIcon});
 
   final String label;
@@ -23,26 +23,35 @@ class AppTextBox extends StatelessWidget {
 
   final bool? enabled;
   final bool obscureText;
-  final bool? isSuffixIcon;
+  final bool isSuffixIcon;
   final String? suffixIcon;
 
   Widget build(BuildContext context) {
     return TextFormField(
+        style: const TextStyle(fontSize: 13),
         obscureText: obscureText ? true : false,
         validator: (value) {},
         keyboardType: TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
-            suffix: isSuffixIcon!
-                ? SvgPicture.asset(
-                    suffixIcon!,
-                    height: 25,
-                  )
-                : Container(),
-            hintStyle: TextStyle(color: AppColors.textDark),
+            filled: true,
+            fillColor: AppColors.primaryColor.withOpacity(.1),
+            suffixIcon: Container(
+              padding: const EdgeInsets.only(right: 20),
+              child: SvgPicture.asset(
+                suffixIcon!,
+                width: 20,
+              ),
+            ),
+            suffixIconConstraints: const BoxConstraints(
+              minHeight: 24,
+              minWidth: 24,
+            ),
+            //suffixIcon: Icon(Icons.clear, size: 14),
+            hintStyle: const TextStyle(color: AppColors.textDark, fontSize: 13),
             hintText: hintText,
-            labelText: label,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
+            // labelText: label,
+            // floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             border: textBoxOutlineInputBorder,
             enabledBorder: textBoxOutlineInputBorder,
@@ -52,6 +61,7 @@ class AppTextBox extends StatelessWidget {
 }
 
 const textBoxOutlineInputBorder = OutlineInputBorder(
-  borderSide: BorderSide(color: AppColors.secondaryColor),
+  //borderSide: BorderSide(color: AppColors.primaryColor),
+  borderSide: BorderSide.none,
   borderRadius: BorderRadius.all(Radius.circular(30)),
 );
