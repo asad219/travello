@@ -1,4 +1,4 @@
-import 'package:travello/modle/User.dart';
+import 'package:travello/model/User.dart';
 
 class Utils {
   static String appName = "Travello";
