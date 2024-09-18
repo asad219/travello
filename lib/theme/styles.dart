@@ -21,6 +21,12 @@ class AppColors {
 
   //text dark color
   static const Color textDark = Color(0XFF151515);
+
+  //red warning
+  static const Color redWarning = Color(0XFFFF0000);
+
+  //White Color
+  static const Color whiteColor = Color(0XFFFFFFFF);
 }
 
 TextStyle h1(Color textColor) {
