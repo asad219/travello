@@ -140,8 +140,17 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image(image: AssetImage("assets/icons/facebook.png")),
-                  Image(image: AssetImage("assets/icons/gmail.png")),
+                  Image(
+                    image: AssetImage("assets/icons/facebook.png"),
+                    width: 35,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Image(
+                    image: AssetImage("assets/icons/gmail.png"),
+                    width: 35,
+                  ),
                 ],
               ),
               BlocConsumer<AuthBloc, AuthState>(
