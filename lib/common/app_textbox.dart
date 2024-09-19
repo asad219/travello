@@ -9,22 +9,26 @@ class AppTextBox extends StatelessWidget {
       required this.hintText,
       required this.controller,
       this.validator,
+      this.suffixFunc,
       this.textInputType,
       this.enabled = true,
       this.obscureText = false,
       required this.isSuffixIcon,
-      this.suffixIcon});
+      this.iconName,
+      this.customWidget});
 
   final String label;
   final String hintText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final String? Function(String?)? suffixFunc;
   final TextInputType? textInputType;
 
   final bool? enabled;
   final bool obscureText;
   final bool isSuffixIcon;
-  final String? suffixIcon;
+  final String? iconName;
+  final Widget? customWidget;
 
   Widget build(BuildContext context) {
     return TextFormField(
@@ -36,22 +40,13 @@ class AppTextBox extends StatelessWidget {
         decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.primaryColor.withOpacity(.1),
-            suffixIcon: Container(
-              padding: const EdgeInsets.only(right: 20),
-              child: SvgPicture.asset(
-                suffixIcon!,
-                width: 20,
-              ),
-            ),
+            suffixIcon: customWidget,
             suffixIconConstraints: const BoxConstraints(
               minHeight: 24,
               minWidth: 24,
             ),
-            //suffixIcon: Icon(Icons.clear, size: 14),
             hintStyle: const TextStyle(color: AppColors.textDark, fontSize: 13),
             hintText: hintText,
-            // labelText: label,
-            // floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             border: textBoxOutlineInputBorder,
             enabledBorder: textBoxOutlineInputBorder,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:travello/routes/route_constants.dart';
-import 'package:travello/views/startup/startup/HomeScreen.dart';
-import 'package:travello/views/startup/startup/LoginScreen.dart';
-import 'package:travello/views/startup/startup/SignupScreen.dart';
-import 'package:travello/views/startup/startup/SplashScreen.dart';
-import 'package:travello/views/startup/startup/WelcomeScreen.dart';
+import 'package:travello/views/startup/HomeScreen.dart';
+import 'package:travello/views/startup/LoginScreen.dart';
+import 'package:travello/views/startup/SignupScreen.dart';
+import 'package:travello/views/startup/SplashScreen.dart';
+import 'package:travello/views/startup/WelcomeScreen.dart';
 
 class CustomRouter {
   static Route<dynamic>? generatedRoute(RouteSettings settings) {

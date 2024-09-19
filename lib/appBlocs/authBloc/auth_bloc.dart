@@ -71,5 +71,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthFailure("An error occurred."));
       }
     });
+
+    // show hide password
+    on<ShowHidePasswordEvent>((event, emit) {
+      emit(ShowHidePasswordState(showHidePassword: event.showHide));
+    });
   }
 }

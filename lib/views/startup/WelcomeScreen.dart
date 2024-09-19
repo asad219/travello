@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travello/common/app_button.dart';
 import 'package:travello/routes/route_constants.dart';
 import 'package:travello/theme/styles.dart';
-import 'package:travello/views/startup/startup/LoginScreen.dart';
+import 'package:travello/views/startup/LoginScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -57,9 +57,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   SizedBox(
                       width: MediaQuery.sizeOf(context).width * .85,
                       child: AppButton(
-                          state: isLoading
-                              ? ButtonState.loading
-                              : ButtonState.idle,
+                          state: ButtonState
+                              .idle, //isLoading ? ButtonState.loading : ButtonState.idle,
                           gradiant: const [
                             AppColors.primaryColor,
                             AppColors.primaryColor

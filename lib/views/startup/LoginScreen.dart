@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:travello/common/app_button.dart';
 import 'package:travello/common/app_textbox.dart';
 import 'package:travello/common/loading_widget.dart';
@@ -8,9 +9,9 @@ import 'package:travello/theme/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../appBlocs/authBloc/auth_bloc.dart';
-import '../../../appBlocs/authBloc/auth_event.dart';
-import '../../../appBlocs/authBloc/auth_state.dart';
+import '../../appBlocs/authBloc/auth_bloc.dart';
+import '../../appBlocs/authBloc/auth_event.dart';
+import '../../appBlocs/authBloc/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
   final int? count = 0;
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // final args = ModalRoute.of(context)!.settings.arguments as Map;
     // print(args['email']);
     final authBloc = BlocProvider.of<AuthBloc>(context);
-
+    bool showHidePassword = ShowHidePasswordState().showHidePassword;
     return Scaffold(
       appBar: AppBar(),
       body: Form(
@@ -78,23 +79,51 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               AppTextBox(
-                label: "Username",
-                hintText: "Enter username",
-                controller: usernameController,
-                obscureText: false,
-                isSuffixIcon: true,
-                suffixIcon: "assets/icons/mail.svg",
-              ),
+                  label: "Username",
+                  hintText: "Enter username",
+                  controller: usernameController,
+                  obscureText: false,
+                  isSuffixIcon: true,
+                  customWidget: Container(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: SvgPicture.asset(
+                      "assets/icons/mail.svg",
+                      width: 20,
+                    ),
+                  )),
               const SizedBox(
                 height: 20,
               ),
-              AppTextBox(
-                label: "Password",
-                hintText: "Enter password",
-                controller: passwordController,
-                obscureText: true,
-                isSuffixIcon: true,
-                suffixIcon: "assets/icons/password-hidden.svg",
+              BlocConsumer<AuthBloc, AuthState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return AppTextBox(
+                      label: "Password",
+                      hintText: "Enter password",
+                      controller: passwordController,
+                      obscureText: ShowHidePasswordState().showHidePassword,
+                      isSuffixIcon: true,
+                      //iconName:
+                      customWidget: Container(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: GestureDetector(
+                          onTap: () {
+                            print(showHidePassword);
+                            if (ShowHidePasswordState().showHidePassword) {
+                              authBloc.add(ShowHidePasswordEvent(false));
+                            } else {
+                              authBloc.add(ShowHidePasswordEvent(true));
+                            }
+                          },
+                          child: SvgPicture.asset(
+                            showHidePassword
+                                ? "assets/icons/password-show.svg"
+                                : "assets/icons/password-hidden.svg",
+                            width: 20,
+                          ),
+                        ),
+                      ));
+                },
               ),
               const SizedBox(
                 height: 40,
@@ -137,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: smallText2(AppColors.textDark.withOpacity(.5)),
                 ),
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image(
@@ -148,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 10,
                   ),
                   Image(
-                    image: AssetImage("assets/icons/gmail.png"),
+                    image: AssetImage("assets/icons/google.png"),
                     width: 35,
                   ),
                 ],

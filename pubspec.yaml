@@ -42,6 +42,8 @@ dependencies:
   fluttertoast: ^8.1.1
   http: ^1.2.1
   flutter_svg:
+  equatable: ^2.0.5
+  bloc: 
 
 dev_dependencies:
   flutter_test:
