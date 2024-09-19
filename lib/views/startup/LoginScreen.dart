@@ -38,22 +38,21 @@ class _LoginScreenState extends State<LoginScreen> {
     // final args = ModalRoute.of(context)!.settings.arguments as Map;
     // print(args['email']);
     final authBloc = BlocProvider.of<AuthBloc>(context);
-    bool showHidePassword = ShowHidePasswordState().showHidePassword;
     return Scaffold(
       appBar: AppBar(),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Center(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(height: 16),
-              Image(
+              const SizedBox(height: 16),
+              const Image(
                 image: AssetImage("assets/images/travello-logo-splash.png"),
                 height: 100,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 "Sign In",
                 style: h3(AppColors.textDark),
@@ -62,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 60,
               ),
               Container(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,29 +93,66 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              BlocConsumer<AuthBloc, AuthState>(
-                listener: (context, state) {},
+              // AppTextBox(
+              //     label: "Password",
+              //     hintText: "Enter password",
+              //     controller: passwordController,
+              //     obscureText: (state is ShowHidePasswordState
+              //         ? state.showHidePassword
+              //         : true),
+              //     isSuffixIcon: true,
+              //     //iconName:
+              //     customWidget: Container(
+              //       padding: const EdgeInsets.only(right: 20),
+              //       child: GestureDetector(
+              //         onTap: () {
+              //           authBloc.add(ShowHidePasswordEvent(
+              //               state is ShowHidePasswordState
+              //                   ? !state.showHidePassword
+              //                   : true));
+              //           print(state);
+              //           if (state is ShowHidePasswordState) {
+              //             print("Showing Status");
+              //             print(state.showHidePassword);
+              //           }
+              //         },
+              //         child: SvgPicture.asset(
+              //           // showHidePassword
+              //           //     ? "assets/icons/password-show.svg"
+              //           //     :
+              //           "assets/icons/password-hidden.svg",
+              //           width: 20,
+              //         ),
+              //       ),
+              //     )),
+
+              BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
+                  bool sh = false;
+                  if (state is ShowHidePasswordState) {
+                    sh = state.showHidePassword;
+                  }
                   return AppTextBox(
                       label: "Password",
                       hintText: "Enter password",
                       controller: passwordController,
-                      obscureText: ShowHidePasswordState().showHidePassword,
+                      obscureText: sh,
                       isSuffixIcon: true,
                       //iconName:
                       customWidget: Container(
                         padding: const EdgeInsets.only(right: 20),
                         child: GestureDetector(
                           onTap: () {
-                            print(showHidePassword);
-                            if (ShowHidePasswordState().showHidePassword) {
-                              authBloc.add(ShowHidePasswordEvent(false));
-                            } else {
-                              authBloc.add(ShowHidePasswordEvent(true));
+                            authBloc
+                                .add(ShowHidePasswordEvent(sh ? false : true));
+                            if (state is ShowHidePasswordState) {
+                              print("Showing Status");
+                              print(state.showHidePassword);
                             }
                           },
                           child: SvgPicture.asset(
-                            showHidePassword
+                            (state is ShowHidePasswordState &&
+                                    state.showHidePassword)
                                 ? "assets/icons/password-show.svg"
                                 : "assets/icons/password-hidden.svg",
                             width: 20,
@@ -125,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ));
                 },
               ),
+
               const SizedBox(
                 height: 40,
               ),

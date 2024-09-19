@@ -25,8 +25,8 @@ class SignupEvent extends AuthEvent {
 }
 
 class ShowHidePasswordEvent extends AuthEvent {
-  final bool showHide;
-  ShowHidePasswordEvent(this.showHide);
+  bool showHide = false;
+  ShowHidePasswordEvent(bool showHide);
 
   @override
   List<Object?> get props => [showHide];

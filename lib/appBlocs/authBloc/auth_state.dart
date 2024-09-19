@@ -30,7 +30,7 @@ class AuthFailure extends AuthState {
 
 class ShowHidePasswordState extends AuthState {
   bool showHidePassword;
-  ShowHidePasswordState({this.showHidePassword = true});
+  ShowHidePasswordState(this.showHidePassword);
   @override
   List<Object?> get props => [showHidePassword];
 }

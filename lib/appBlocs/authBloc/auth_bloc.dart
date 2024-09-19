@@ -74,7 +74,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // show hide password
     on<ShowHidePasswordEvent>((event, emit) {
-      emit(ShowHidePasswordState(showHidePassword: event.showHide));
+      bool e = event.showHide;
+      print(e);
+      emit(ShowHidePasswordState(event.showHide));
     });
   }
 }
