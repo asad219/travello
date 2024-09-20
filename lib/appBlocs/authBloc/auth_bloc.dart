@@ -29,14 +29,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         if (response.body.contains("status") &&
             response.body.contains("failed")) {
-          Res res = Res.fromJson(jsonDecode(response.body));
+          Res res = Res.fromJson(jsonDecode(
+              response.body.replaceAll("successfully connected", "")));
           emit(AuthFailure(res.message.toString()));
         } else {
-          Utils.userInfo = User.fromJson(jsonDecode(response.body)[0]);
-
-          emit(AuthSuccess("Login successful!"));
+          Utils.userInfo = User.fromJson(jsonDecode(
+              response.body.replaceAll("successfully connected", ""))[0]);
+          if (Utils.userInfo is Null) {
+            emit(AuthFailure("Invalid username and password."));
+          } else {
+            emit(AuthSuccess("Login successful!"));
+          }
         }
       } catch (e) {
+        print(e);
         emit(AuthFailure("An error occurred."));
       }
     });
@@ -73,10 +79,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     // show hide password
-    on<ShowHidePasswordEvent>((event, emit) {
-      bool e = event.showHide;
-      print(e);
-      emit(ShowHidePasswordState(event.showHide));
-    });
+    // on<ShowHidePasswordEvent>((event, emit) {
+    //   bool e = event.showHide;
+    //   print(e);
+    //   emit(ShowHidePasswordState(event.showHide));
+    // });
   }
 }

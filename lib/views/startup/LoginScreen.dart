@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_bloc.dart';
+import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_event.dart';
+import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_state.dart';
 import 'package:travello/common/app_button.dart';
 import 'package:travello/common/app_textbox.dart';
 import 'package:travello/common/loading_widget.dart';
@@ -58,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: h3(AppColors.textDark),
               ),
               const SizedBox(
-                height: 60,
+                height: 40,
               ),
               Container(
                 padding: const EdgeInsets.all(16.0),
@@ -77,6 +80,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
+              BlocConsumer<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  if (state is AuthLoading) {
+                    return Container(
+                        height: 40, width: 40, child: LoadingWidget());
+                  } else if (state is AuthFailure) {
+                    return SizedBox(
+                      height: 40,
+                      child: Text(
+                        state.error,
+                        style: const TextStyle(color: Colors.red, fontSize: 15),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox(height: 40);
+                  }
+                },
+                listener: (BuildContext context, AuthState state) {
+                  if (state is AuthSuccess) {
+                    // Navigator.of(context).pushNamedAndRemoveUntil(homeRoute , (route)=>false);
+                    Navigator.of(context).pushReplacementNamed(homeRoute);
+                  }
+                },
+              ),
               AppTextBox(
                   label: "Username",
                   hintText: "Enter username",
@@ -93,66 +120,25 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              // AppTextBox(
-              //     label: "Password",
-              //     hintText: "Enter password",
-              //     controller: passwordController,
-              //     obscureText: (state is ShowHidePasswordState
-              //         ? state.showHidePassword
-              //         : true),
-              //     isSuffixIcon: true,
-              //     //iconName:
-              //     customWidget: Container(
-              //       padding: const EdgeInsets.only(right: 20),
-              //       child: GestureDetector(
-              //         onTap: () {
-              //           authBloc.add(ShowHidePasswordEvent(
-              //               state is ShowHidePasswordState
-              //                   ? !state.showHidePassword
-              //                   : true));
-              //           print(state);
-              //           if (state is ShowHidePasswordState) {
-              //             print("Showing Status");
-              //             print(state.showHidePassword);
-              //           }
-              //         },
-              //         child: SvgPicture.asset(
-              //           // showHidePassword
-              //           //     ? "assets/icons/password-show.svg"
-              //           //     :
-              //           "assets/icons/password-hidden.svg",
-              //           width: 20,
-              //         ),
-              //       ),
-              //     )),
-
-              BlocBuilder<AuthBloc, AuthState>(
+              BlocBuilder<ShowHideBloc, ShowHideState>(
                 builder: (context, state) {
-                  bool sh = false;
-                  if (state is ShowHidePasswordState) {
-                    sh = state.showHidePassword;
-                  }
                   return AppTextBox(
                       label: "Password",
                       hintText: "Enter password",
                       controller: passwordController,
-                      obscureText: sh,
+                      obscureText: state.isShow,
                       isSuffixIcon: true,
                       //iconName:
                       customWidget: Container(
                         padding: const EdgeInsets.only(right: 20),
                         child: GestureDetector(
                           onTap: () {
-                            authBloc
-                                .add(ShowHidePasswordEvent(sh ? false : true));
-                            if (state is ShowHidePasswordState) {
-                              print("Showing Status");
-                              print(state.showHidePassword);
-                            }
+                            context
+                                .read<ShowHideBloc>()
+                                .add(ShowHidePasswordEvent(!state.isShow));
                           },
                           child: SvgPicture.asset(
-                            (state is ShowHidePasswordState &&
-                                    state.showHidePassword)
+                            state.isShow
                                 ? "assets/icons/password-show.svg"
                                 : "assets/icons/password-hidden.svg",
                             width: 20,
@@ -161,7 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ));
                 },
               ),
-
               const SizedBox(
                 height: 40,
               ),
@@ -218,27 +203,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 35,
                   ),
                 ],
-              ),
-              BlocConsumer<AuthBloc, AuthState>(
-                builder: (context, state) {
-                  if (state is AuthLoading) {
-                    return Container(
-                        height: 40, width: 40, child: LoadingWidget());
-                  } else if (state is AuthFailure) {
-                    return Text(
-                      state.error,
-                      style: const TextStyle(color: Colors.red, fontSize: 15),
-                    );
-                  } else {
-                    return const Text('');
-                  }
-                },
-                listener: (BuildContext context, AuthState state) {
-                  if (state is AuthSuccess) {
-                    // Navigator.of(context).pushNamedAndRemoveUntil(homeRoute , (route)=>false);
-                    Navigator.of(context).pushReplacementNamed(homeRoute);
-                  }
-                },
               ),
             ]),
           ),

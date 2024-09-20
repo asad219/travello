@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_bloc.dart';
+import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_event.dart';
+import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_state.dart';
+import 'package:travello/common/app_textbox.dart';
 
 import '../../appBlocs/authBloc/auth_bloc.dart';
 import 'package:travello/common/app_button.dart';
@@ -27,6 +32,7 @@ class _SignupScreenState extends State<SignupScreen> {
     TextEditingController passwordController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController phoneController = TextEditingController();
+    bool isLoading = false;
     final authBloc = BlocProvider.of<AuthBloc>(context);
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -52,139 +58,113 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 40,
               ),
-              TextFormField(
-                validator: (value) {},
-                keyboardType: TextInputType.text,
-                controller: usernameController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppColors.primaryBackground,
-                  hintStyle: TextStyle(color: AppColors.textDark),
-                  hintText: "Username ",
-                  contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  // labelText: 'Username',
-                  // labelStyle: TextStyle(color: gt.primaryColor),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                validator: (value) {},
-                keyboardType: TextInputType.text,
-                controller: passwordController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppColors.primaryBackground,
-                  hintStyle: TextStyle(color: AppColors.textDark),
-                  hintText: "Password ",
-                  contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  // labelText: 'Username',
-                  // labelStyle: TextStyle(color: gt.primaryColor),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                validator: (value) {},
-                keyboardType: TextInputType.text,
-                controller: phoneController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppColors.primaryBackground,
-                  hintStyle: TextStyle(color: AppColors.textDark),
-                  hintText: "Mobile ",
-                  contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  // labelText: 'Username',
-                  // labelStyle: TextStyle(color: gt.primaryColor),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                validator: (value) {},
-                keyboardType: TextInputType.text,
-                controller: emailController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppColors.primaryBackground,
-                  hintStyle: TextStyle(color: AppColors.textDark),
-                  hintText: "Email ",
-                  contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0)),
-                  // labelText: 'Username',
-                  // labelStyle: TextStyle(color: gt.primaryColor),
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Create Account",
+                      style: h4(AppColors.textDark),
+                    ),
+                    Text(
+                      "Enter your details for \nSign up!",
+                      style: normalText2(AppColors.textLight),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
                 height: 40,
               ),
+              AppTextBox(
+                  label: "Username",
+                  hintText: "Enter username",
+                  controller: usernameController,
+                  obscureText: false,
+                  isSuffixIcon: true,
+                  customWidget: Container(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: SvgPicture.asset(
+                      "assets/icons/user.svg",
+                      width: 20,
+                    ),
+                  )),
+              const SizedBox(
+                height: 10,
+              ),
+              BlocBuilder<ShowHideBloc, ShowHideState>(
+                builder: (context, state) {
+                  return AppTextBox(
+                      label: "Password",
+                      hintText: "Enter password",
+                      controller: passwordController,
+                      obscureText: state.isShow,
+                      isSuffixIcon: true,
+                      //iconName:
+                      customWidget: Container(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: GestureDetector(
+                          onTap: () {
+                            context
+                                .read<ShowHideBloc>()
+                                .add(ShowHidePasswordEvent(!state.isShow));
+                          },
+                          child: SvgPicture.asset(
+                            state.isShow
+                                ? "assets/icons/password-show.svg"
+                                : "assets/icons/password-hidden.svg",
+                            width: 20,
+                          ),
+                        ),
+                      ));
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              AppTextBox(
+                  label: "Mobie/Phone",
+                  hintText: "Enter Mobile/Phone Number",
+                  controller: phoneController,
+                  obscureText: false,
+                  isSuffixIcon: true,
+                  customWidget: Container(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: SvgPicture.asset(
+                      "assets/icons/mobile-phone.svg",
+                      width: 20,
+                    ),
+                  )),
+              const SizedBox(
+                height: 10,
+              ),
+              AppTextBox(
+                  label: "Email",
+                  hintText: "Enter Email Address",
+                  controller: emailController,
+                  obscureText: false,
+                  isSuffixIcon: true,
+                  customWidget: Container(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: SvgPicture.asset(
+                      "assets/icons/mail.svg",
+                      width: 20,
+                    ),
+                  )),
+              const SizedBox(
+                height: 40,
+              ),
               SizedBox(
-                  width: MediaQuery.sizeOf(context).width * .85,
                   child: AppButton(
+                      state: isLoading ? ButtonState.loading : ButtonState.idle,
                       gradiant: const [
                         AppColors.primaryColor,
                         AppColors.primaryColor
                       ],
-                      buttonRadius: 10,
-                      title: "Signup",
+                      buttonRadius: 30,
+                      title: isLoading ? "Loading..." : "Sign up",
                       titleColor: AppColors.textWhite,
                       leadingIcon: const Icon(
                         Icons.arrow_forward_rounded,
@@ -197,13 +177,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
                         String name = usernameController.text.toString();
                         String pass = passwordController.text.toString();
-                        String email = emailController.text.toString();
-                        String phone = phoneController.text.toString();
-                        if (name.isNotEmpty &&
-                            pass.isNotEmpty &&
-                            email.isNotEmpty &&
-                            phone.isNotEmpty) {
-                          authBloc.add(SignupEvent(name, pass, email, phone));
+                        if (name.isNotEmpty && pass.isNotEmpty) {
+                          authBloc.add(LoginEvent(name, pass));
                         } else {
                           Fluttertoast.showToast(
                               msg: 'All fields are mandatory');
@@ -239,7 +214,7 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       bottomNavigationBar: GestureDetector(
         onTap: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed(loginRoute);
         },
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -250,9 +225,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text("Already have an account? ",
-                      style: normalText1(AppColors.textDark)),
+                      style: normalText2(AppColors.textDark)),
                   const SizedBox(width: 8),
-                  Text("Login", style: h4(AppColors.textDark)),
+                  Text("Sign In",
+                      style: normalText2Bold(AppColors.primaryColor)),
                 ],
               ),
             ),

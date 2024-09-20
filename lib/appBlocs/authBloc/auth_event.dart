@@ -24,10 +24,10 @@ class SignupEvent extends AuthEvent {
   List<Object?> get props => [username, password, email, phone];
 }
 
-class ShowHidePasswordEvent extends AuthEvent {
-  bool showHide = false;
-  ShowHidePasswordEvent(bool showHide);
+// class ShowHidePasswordEvent extends AuthEvent {
+//   bool showHide = false;
+//   ShowHidePasswordEvent(bool showHide);
 
-  @override
-  List<Object?> get props => [showHide];
-}
+//   @override
+//   List<Object?> get props => [showHide];
+// }

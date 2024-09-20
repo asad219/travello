@@ -28,9 +28,9 @@ class AuthFailure extends AuthState {
   List<Object?> get props => [];
 }
 
-class ShowHidePasswordState extends AuthState {
-  bool showHidePassword;
-  ShowHidePasswordState(this.showHidePassword);
-  @override
-  List<Object?> get props => [showHidePassword];
-}
+// class ShowHidePasswordState extends AuthState {
+//   bool showHidePassword = true;
+//   ShowHidePasswordState(this.showHidePassword);
+//   @override
+//   List<Object?> get props => [showHidePassword];
+// }
