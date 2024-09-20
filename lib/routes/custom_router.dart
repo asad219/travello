@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travello/routes/route_constants.dart';
-import 'package:travello/views/startup/HomeScreen.dart';
+import 'package:travello/views/bottomNavigation/BottomNavigation.dart';
+import 'package:travello/views/navigation/HomeScreen.dart';
 import 'package:travello/views/startup/LoginScreen.dart';
 import 'package:travello/views/startup/SignupScreen.dart';
 import 'package:travello/views/startup/SplashScreen.dart';
@@ -19,7 +20,43 @@ class CustomRouter {
       case signupRoute:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => const Homescreen());
+        //return MaterialPageRoute(builder: (_) => const Homescreen());
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Homescreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+
+      case bottomNavigation:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BottomNavigationScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
     }
     return null;
   }

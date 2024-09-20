@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_bloc.dart';
-import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_event.dart';
-import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_state.dart';
+import 'package:travello/appBlocs/showHideBloc/show_hide_bloc.dart';
+import 'package:travello/appBlocs/showHideBloc/show_hide_event.dart';
+import 'package:travello/appBlocs/showHideBloc/show_hide_state.dart';
 import 'package:travello/common/app_button.dart';
 import 'package:travello/common/app_textbox.dart';
 import 'package:travello/common/loading_widget.dart';
@@ -100,7 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 listener: (BuildContext context, AuthState state) {
                   if (state is AuthSuccess) {
                     // Navigator.of(context).pushNamedAndRemoveUntil(homeRoute , (route)=>false);
-                    Navigator.of(context).pushReplacementNamed(homeRoute);
+                    Navigator.of(context)
+                        .pushReplacementNamed(bottomNavigation);
                   }
                 },
               ),
@@ -208,29 +210,48 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(signupRoute);
-        },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("Don't have an account? ",
-                      style: normalText2(AppColors.textDark)),
-                  const SizedBox(width: 8),
-                  Text("Sign Up",
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Don't have an account? ",
+                    style: normalText2(AppColors.textDark)),
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(signupRoute);
+                  },
+                  child: Text("Sign Up",
                       style: normalText2Bold(AppColors.primaryColor)),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        bottomNavigation, (route) => false);
+                  },
+                  child: Text("Continue as a guest",
+                      style: normalText2Bold(AppColors.primaryColor)),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }

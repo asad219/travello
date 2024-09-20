@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 
 import '../../../helper/Utils.dart';
 import '../../../helper/api_client.dart';
-import '../../model/User.dart';
-import '../../model/res.dart';
+import '../../models/User.dart';
+import '../../models/res.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_event.dart';
-import 'package:travello/appBlocs/showHideBloc/bloc/show_hide_state.dart';
+import 'package:travello/appBlocs/showHideBloc/show_hide_event.dart';
+import 'package:travello/appBlocs/showHideBloc/show_hide_state.dart';
 
 class ShowHideBloc extends Bloc<ShowHideEvent, ShowHideState> {
   ShowHideBloc() : super(ShowHideState()) {
