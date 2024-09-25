@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:travello/appBlocs/showHideBloc/show_hide_bloc.dart';
-import 'package:travello/appBlocs/showHideBloc/show_hide_event.dart';
-import 'package:travello/appBlocs/showHideBloc/show_hide_state.dart';
+
 import 'package:travello/common/app_button.dart';
 import 'package:travello/common/app_textbox.dart';
 import 'package:travello/common/loading_widget.dart';
@@ -87,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return Container(
                         height: 40, width: 40, child: LoadingWidget());
                   } else if (state is AuthFailure) {
+
                     return SizedBox(
                       height: 40,
                       child: Text(
@@ -101,8 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 listener: (BuildContext context, AuthState state) {
                   if (state is AuthSuccess) {
                     // Navigator.of(context).pushNamedAndRemoveUntil(homeRoute , (route)=>false);
-                    Navigator.of(context)
-                        .pushReplacementNamed(bottomNavigation);
+                    Navigator.of(context).pushReplacementNamed(bottomNavigation);
                   }
                 },
               ),
@@ -122,25 +120,38 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              BlocBuilder<ShowHideBloc, ShowHideState>(
+              BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
+
+                  print("builder is called for eye view");
+
+                  bool currentState = false;
+                  if(state is ShowHideState){
+                    print('state:'+ state.showHide.toString());
+                    currentState =    state.showHide;
+                    print('state: $currentState');
+                  }
                   return AppTextBox(
                       label: "Password",
                       hintText: "Enter password",
                       controller: passwordController,
-                      obscureText: state.isShow,
+                      obscureText: currentState,
                       isSuffixIcon: true,
                       //iconName:
                       customWidget: Container(
                         padding: const EdgeInsets.only(right: 20),
                         child: GestureDetector(
                           onTap: () {
-                            context
-                                .read<ShowHideBloc>()
-                                .add(ShowHidePasswordEvent(!state.isShow));
+                            // context
+                            //     .read<ShowHideBloc>()
+                            //     .add(ShowHidePasswordEvent(!state.isShow));
+
+                            bool v = !currentState;
+                            print('state:after change $v');
+                            authBloc.add(ShowHideEvent(v));
                           },
                           child: SvgPicture.asset(
-                            state.isShow
+                            currentState
                                 ? "assets/icons/password-show.svg"
                                 : "assets/icons/password-hidden.svg",
                             width: 20,

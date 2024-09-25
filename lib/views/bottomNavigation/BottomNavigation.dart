@@ -17,17 +17,20 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+
+  List screens = [
+    const Homescreen(),
+    const TripsScreen(),
+    const SavedScreen(),
+    const InboxScreen(),
+    const ProfileScreen()
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BottomNavigationBloc, BottomNavigationState>(
       builder: (context, state) {
-        List screens = [
-          const Homescreen(),
-          const TripsScreen(),
-          const SavedScreen(),
-          const InboxScreen(),
-          const ProfileScreen()
-        ];
+        print("build is called");
+
         return Scaffold(
           body: screens[state.currentIndex],
           bottomNavigationBar: SizedBox(
@@ -38,6 +41,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               unselectedFontSize: 10,
               currentIndex: state.currentIndex,
               onTap: (index) {
+
                 print(index);
                 context
                     .read<BottomNavigationBloc>()

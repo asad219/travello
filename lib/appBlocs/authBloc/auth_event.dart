@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-abstract class AuthEvent extends Equatable {}
+abstract class AuthEvent  {}
 
 class LoginEvent extends AuthEvent {
   final String username;
@@ -24,10 +24,11 @@ class SignupEvent extends AuthEvent {
   List<Object?> get props => [username, password, email, phone];
 }
 
-// class ShowHidePasswordEvent extends AuthEvent {
-//   bool showHide = false;
-//   ShowHidePasswordEvent(bool showHide);
+class ShowHideEvent extends AuthEvent {
+  final bool showHide ;
+  ShowHideEvent(this.showHide);
 
-//   @override
-//   List<Object?> get props => [showHide];
-// }
+
+  @override
+  List<Object?> get props => [showHide];
+}

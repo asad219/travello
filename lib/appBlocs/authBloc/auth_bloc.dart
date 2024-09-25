@@ -67,6 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (response.body.contains("status")) {
           Res res = Res.fromJson(jsonDecode(response.body));
 
+
           if (res.status == "failed") {
             emit(AuthFailure(res.message.toString()));
           } else {
@@ -79,10 +80,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     // show hide password
-    // on<ShowHidePasswordEvent>((event, emit) {
-    //   bool e = event.showHide;
-    //   print(e);
-    //   emit(ShowHidePasswordState(event.showHide));
-    // });
+    on<ShowHideEvent>((event, emit) {
+
+      print("indie event:"+ event.showHide.toString());
+      emit(ShowHideState(event.showHide));
+    });
   }
 }

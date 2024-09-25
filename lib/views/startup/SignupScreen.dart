@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:travello/appBlocs/showHideBloc/show_hide_bloc.dart';
-import 'package:travello/appBlocs/showHideBloc/show_hide_event.dart';
-import 'package:travello/appBlocs/showHideBloc/show_hide_state.dart';
+
 import 'package:travello/common/app_button.dart';
 import 'package:travello/common/app_textbox.dart';
 import 'package:travello/common/loading_widget.dart';
@@ -15,6 +13,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../appBlocs/authBloc/auth_bloc.dart';
 import '../../appBlocs/authBloc/auth_event.dart';
 import '../../appBlocs/authBloc/auth_state.dart';
+import '../../appBlocs/showHideBlocInvd/show_hide_bloc.dart';
+import '../../appBlocs/showHideBlocInvd/show_hide_event.dart';
+import '../../appBlocs/showHideBlocInvd/show_hide_state.dart';
 
 class SignupScreen extends StatefulWidget {
   final int? count = 0;
@@ -117,7 +118,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 20,
               ),
-              BlocBuilder<ShowHideBloc, ShowHideState>(
+              BlocBuilder<ShowHideBloc, ShowHideStateI>(
                 builder: (context, state) {
                   return AppTextBox(
                       label: "Password",

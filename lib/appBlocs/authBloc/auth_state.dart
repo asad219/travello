@@ -1,6 +1,8 @@
-import 'package:equatable/equatable.dart';
 
-abstract class AuthState extends Equatable {}
+
+abstract class AuthState  {
+
+}
 
 class AuthInitial extends AuthState {
   @override
@@ -28,9 +30,10 @@ class AuthFailure extends AuthState {
   List<Object?> get props => [];
 }
 
-// class ShowHidePasswordState extends AuthState {
-//   bool showHidePassword = true;
-//   ShowHidePasswordState(this.showHidePassword);
-//   @override
-//   List<Object?> get props => [showHidePassword];
-// }
+class ShowHideState extends AuthState {
+  bool showHide = true;
+  ShowHideState(this.showHide);
+
+  @override
+  List<Object?> get props => [];
+}
