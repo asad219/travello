@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ApiClient {
 
-    String local_domain = "http://192.164.66.675/travel_api/";
+//  static  String live_domain = "http://192.168.0.109/travel_api/";
     static  String live_domain =  "https://api.spectrumxllc.com/";
 
 

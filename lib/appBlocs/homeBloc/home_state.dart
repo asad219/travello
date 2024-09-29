@@ -2,11 +2,10 @@ import 'package:equatable/equatable.dart';
 
 import '../../models/Place.dart';
 
-abstract class HomeState  {
-
-}
+abstract class HomeState  {}
 
 class HomeInitial extends HomeState {
+
   @override
   List<Object?> get props => [];
 }
@@ -33,6 +32,17 @@ class HomeGetPlacesSuccess extends HomeState {
   List<Object?> get props => [placesList];
 }
 
+class HomeGetFamousPlacesSuccess extends HomeState {
+  List<Place> famousPlacesList = [];
+  HomeGetFamousPlacesSuccess(this.famousPlacesList);
 
+  @override
+  List<Object?> get props => [famousPlacesList];
+}
+
+class HomeNormalSuccess extends HomeState{
+   final String message;
+   HomeNormalSuccess(this.message);
+}
 
 

@@ -15,34 +15,38 @@ import '../../models/res.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
+    print("in initial state");
 
     on<GetPlacesEvent>((event,emit) async {
          emit(HomeLoading());
+         print("in holding state");
          String url = ApiClient.getPlaces;
 
          print(url);
 
+
          print(event.type.toString());
          var response =  await post(Uri.parse(url), body: {"type": event.type.toString()});
-
          print("resp: "+response.body);
-         // if(response.body.contains("status") && response.body.contains("failed")){
-         //   Res res = Res.fromJson(jsonDecode(response.body));
-         //   emit(HomeFailure(res.message.toString()));
-         //
-         // }else{
-         //
-         //   List<dynamic> list = json.decode(response.body);
-         //
-         //   List<Place> placesList = [];
-         //   for(int i=0;i<list.length;i++){
-         //     placesList.add(Place.fromJson(list[i]));
-         //   }
-         //   emit(HomeGetPlacesSuccess(placesList));
-         //
-         //
-         //
-         // }
+
+         if(response.body.contains("status") && response.body.contains("failed")){
+           Res res = Res.fromJson(jsonDecode(response.body));
+           emit(HomeFailure(res.message.toString()));
+
+         }else{
+
+           List<dynamic> list = json.decode(response.body);
+
+           List<Place> placesList = [];
+           for(int i=0;i<list.length;i++){
+             placesList.add(Place.fromJson(list[i]));
+           }
+
+           emit(HomeGetPlacesSuccess(placesList));
+
+
+
+         }
 
     });
 
