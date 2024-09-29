@@ -17,9 +17,8 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-
   List screens = [
-    const Homescreen(),
+    Homescreen(),
     const TripsScreen(),
     const SavedScreen(),
     const InboxScreen(),
@@ -41,7 +40,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               unselectedFontSize: 10,
               currentIndex: state.currentIndex,
               onTap: (index) {
-
                 print(index);
                 context
                     .read<BottomNavigationBloc>()
