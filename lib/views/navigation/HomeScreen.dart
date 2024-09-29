@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travello/appBlocs/homeBloc/home_bloc.dart';
+import 'package:travello/appBlocs/homeBloc/home_event.dart';
 import 'package:travello/theme/styles.dart';
 
 class Homescreen extends StatefulWidget {
@@ -10,14 +13,17 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-  @override
+
   @override
   Widget build(BuildContext context) {
+
+    final homeBloc = BlocProvider.of<HomeBloc>(context);
+
     return Scaffold(
       body: Stack(children: [
         Container(
           width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height * .5,
+          height: MediaQuery.sizeOf(context).height * .3,
           child: const Image(
             image: AssetImage("assets/images/rome-banner.jpg"),
             fit: BoxFit.cover,
@@ -49,7 +55,15 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   )),
               Column(
-                children: [],
+                children: [
+                  ElevatedButton(
+                      onPressed: (){
+                        homeBloc.add(GetPlacesEvent("All"));
+                      },
+                      child: const Text("Get Places")),
+                  Text('ok')
+
+                ],
               ),
               Padding(
                 padding: EdgeInsets.all(20),

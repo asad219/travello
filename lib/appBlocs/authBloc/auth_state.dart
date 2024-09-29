@@ -27,7 +27,7 @@ class AuthFailure extends AuthState {
   AuthFailure(this.error);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [error];
 }
 
 class ShowHideState extends AuthState {

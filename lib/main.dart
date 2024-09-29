@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:travello/appBlocs/bottomNavigationBloc/bloc/bottom_navigation_bloc.dart';
+import 'package:travello/appBlocs/homeBloc/home_bloc.dart';
 
 import 'package:travello/helper/Utils.dart';
 import 'package:travello/routes/custom_router.dart';
@@ -13,10 +14,9 @@ import 'appBlocs/showHideBlocInvd/show_hide_bloc.dart';
 
 void main() {
   runApp(MultiBlocProvider(providers: [
-    BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(),
-    ),
+    BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
     BlocProvider<ShowHideBloc>(create: (context) => ShowHideBloc()),
+    BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
     BlocProvider<BottomNavigationBloc>(
         create: (context) => BottomNavigationBloc())
   ], child: const MyApp()));

@@ -13,6 +13,8 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     // login logic
+
+
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
       try {
